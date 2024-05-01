@@ -1,0 +1,6 @@
+﻿services:
+  simplenotes-webapi:
+    image: simplenotes-webapi:master
+    build:
+      context: src/SimpleNotes.WebApi
+      dockerfile: Dockerfile
