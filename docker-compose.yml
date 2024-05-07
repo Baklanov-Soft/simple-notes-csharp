@@ -1,6 +1,26 @@
 ﻿services:
   simplenotes-webapi:
+    container_name: simplenotes-webapi
     image: simplenotes-webapi:master
     build:
       context: src/SimpleNotes.WebApi
       dockerfile: Dockerfile
+    depends_on:
+      - postgres
+  
+  postgres:
+    container_name: postgres
+    image: postgres:16-alpine3.18
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: notes
+      POSTGRES_USER: notes
+      POSTGRES_PASSWORD: P@ssw0rd
+    ports:
+      - "127.0.0.1:5432:5432"
+    command: [ "postgres", "-c", "log_statement=all" ]
+
+
+volumes:
+  pg-data:
