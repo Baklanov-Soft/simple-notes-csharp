@@ -5,7 +5,7 @@ namespace SimpleNotes.Infrastructure.Entities;
 
 public class TreeNode
 {
-    public Guid Id { get; init; }
+    public required Guid Id { get; init; }
 
     public required string Name { get; set; }
 
@@ -13,5 +13,5 @@ public class TreeNode
 
     public required LTree Path { get; set; }
 
-    public required HashSet<TreeNodeLabel> TreeNodeLabels { get; init; }
+    public HashSet<TreeNodeLabel>? TreeNodeLabels { get; set; }
 }

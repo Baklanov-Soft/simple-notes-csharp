@@ -6,5 +6,5 @@ public class Label
     public required string Name { get; set; }
     public required string Color { get; set; }
     
-    public required HashSet<TreeNodeLabel> TreeNodeLabels { get; init; }
+    public HashSet<TreeNodeLabel>? TreeNodeLabels { get; set; }
 }
