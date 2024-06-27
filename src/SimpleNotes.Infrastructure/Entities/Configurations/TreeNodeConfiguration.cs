@@ -11,5 +11,10 @@ public class TreeNodeConfiguration : IEntityTypeConfiguration<TreeNode>
         builder.Property(n => n.Name).HasMaxLength(250);
         builder.HasIndex(n => n.Path).HasMethod("GIST");
         builder.UseTptMappingStrategy();
+
+        builder.HasMany(n => n.TreeNodeLabels)
+            .WithOne(l => l.TreeNode)
+            .HasForeignKey(n => n.TreeNodeId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

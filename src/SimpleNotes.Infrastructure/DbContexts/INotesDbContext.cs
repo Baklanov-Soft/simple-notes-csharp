@@ -3,9 +3,13 @@ using SimpleNotes.Infrastructure.Entities;
 
 namespace SimpleNotes.Infrastructure.DbContexts;
 
-public interface INotesDbContext
+public interface INotesDbContext : IDisposable, IAsyncDisposable
 {
     DbSet<TreeNode> TreeNodes { get; }
+    DbSet<Note> Notes { get; }
+    DbSet<Label> Labels { get; }
+    DbSet<TreeNodeLabel> TreeNodeLabels { get; }
 
+    int SaveChanges();
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
