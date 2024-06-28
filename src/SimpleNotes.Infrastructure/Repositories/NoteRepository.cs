@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using SimpleNotes.Application.Abstractions;
 using SimpleNotes.Domain;
 using SimpleNotes.Infrastructure.DbContexts;
+using SimpleNotes.Infrastructure.Services;
 
 namespace SimpleNotes.Infrastructure.Repositories;
 
@@ -12,7 +13,7 @@ public class NoteRepository(INotesDbContext dbContext) : INoteRepository
         var note = await dbContext.Notes
             .Where(n => n.Id == id)
             .Select(n => new Note(n.Id, n.Name, 250,
-                n.TreeNodeLabels!.Select(l => new Label(l.Label.Id, l.Label.Name, l.Label.Color)).ToHashSet())
+                n.TreeNodeLabels!.Select(l => l.LabelId).ToHashSet())
             {
                 Text = n.Text
             })

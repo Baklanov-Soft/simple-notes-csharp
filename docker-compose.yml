@@ -1,13 +1,12 @@
-﻿services:
-  simplenotes-webapi:
-    container_name: simplenotes-webapi
-    image: simplenotes-webapi:master
+﻿services:  
+  simplenotes-grpcserver:
+    container_name: simplenotes-grpcserver
+    image: simplenotes-grpcserver
     build:
-      context: src/SimpleNotes.WebApi
-      dockerfile: Dockerfile
+      context: src/SimpleNotes.GrpcServer
     depends_on:
       - postgres
-  
+      
   postgres:
     container_name: postgres
     image: postgres:16-alpine3.18
@@ -24,3 +23,4 @@
 
 volumes:
   pg-data:
+

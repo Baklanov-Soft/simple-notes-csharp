@@ -2,9 +2,9 @@ using FluentResults;
 
 namespace SimpleNotes.Domain;
 
-public class LabelAlreadyAssignedError(Label label) : Error(MessageText)
+public class LabelAlreadyAssignedError(Guid labelId) : Error(MessageText)
 {
     private const string MessageText = "Label already assigned.";
 
-    public Label Label { get; } = label;
+    public Guid LabelId { get; } = labelId;
 }

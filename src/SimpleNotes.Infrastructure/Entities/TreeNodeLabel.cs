@@ -2,11 +2,11 @@ namespace SimpleNotes.Infrastructure.Entities;
 
 public class TreeNodeLabel : IEquatable<TreeNodeLabel>
 {
-    public required Guid TreeNodeId { get; init; }
-    public required TreeNode TreeNode { get; init; }
+    public Guid TreeNodeId { get; init; }
+    public TreeNode TreeNode { get; init; } = null!;
 
-    public required Guid LabelId { get; init; }
-    public required Label Label { get; init; }
+    public Guid LabelId { get; init; }
+    public Label Label { get; init; } = null!;
 
     public bool Equals(TreeNodeLabel? other)
     {
@@ -19,7 +19,7 @@ public class TreeNodeLabel : IEquatable<TreeNodeLabel>
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != this.GetType()) return false;
+        if (obj.GetType() != GetType()) return false;
         return Equals((TreeNodeLabel)obj);
     }
 
