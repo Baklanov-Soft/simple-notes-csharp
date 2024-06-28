@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleNotes.Domain.UnitTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleNotes.Infrastructure.IntegrationTests", "test\SimpleNotes.Infrastructure.IntegrationTests\SimpleNotes.Infrastructure.IntegrationTests.csproj", "{A6015C82-8590-4958-8A04-F5CFF5D27F5F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleNotes.GrpcServer", "src\SimpleNotes.GrpcServer\SimpleNotes.GrpcServer.csproj", "{1E52D237-3D31-4662-8694-3DD506F6C1BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{A6015C82-8590-4958-8A04-F5CFF5D27F5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6015C82-8590-4958-8A04-F5CFF5D27F5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6015C82-8590-4958-8A04-F5CFF5D27F5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E52D237-3D31-4662-8694-3DD506F6C1BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E52D237-3D31-4662-8694-3DD506F6C1BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E52D237-3D31-4662-8694-3DD506F6C1BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E52D237-3D31-4662-8694-3DD506F6C1BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{EC892B5C-9F59-4DFD-B536-272F4C35F9EE} = {0D5BCB6A-EC1A-4DAE-8B7E-E72796D0FF39}
@@ -52,5 +58,6 @@ Global
 		{BCA86024-F129-4624-AE01-D767670AFAE5} = {0D5BCB6A-EC1A-4DAE-8B7E-E72796D0FF39}
 		{F73B991F-AD59-43E6-819C-F76905657C31} = {2C3CD446-89CC-4536-8AAB-76758134D9BD}
 		{A6015C82-8590-4958-8A04-F5CFF5D27F5F} = {2C3CD446-89CC-4536-8AAB-76758134D9BD}
+		{1E52D237-3D31-4662-8694-3DD506F6C1BC} = {0D5BCB6A-EC1A-4DAE-8B7E-E72796D0FF39}
 	EndGlobalSection
 EndGlobal

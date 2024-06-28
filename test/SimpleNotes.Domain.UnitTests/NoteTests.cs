@@ -40,23 +40,23 @@ public class NoteTests
     public class AssignLabels
     {
         private readonly Note _note = new(Guid.Empty, "TestNote", 10);
-        private readonly Label _label = new(Guid.Empty, "TestLabel", "#000000");
+        private readonly Guid _labelId = Guid.Empty;
 
         [Fact]
         public void Assign_single_label()
         {
-            var result = _note.AssignLabel(_label);
+            var result = _note.AssignLabel(_labelId);
          
             result.IsSuccess.Should().BeTrue();
             
-            _note.Labels.Should().Contain(_label);
+            _note.LabelIds.Should().Contain(_labelId);
         }
 
         [Fact]
         public void Assign_label_twice()
         {
-            _note.AssignLabel(_label);
-            var result = _note.AssignLabel(_label);
+            _note.AssignLabel(_labelId);
+            var result = _note.AssignLabel(_labelId);
          
             result.IsFailed.Should().BeTrue();
             result.Errors.Should().HaveCount(1);

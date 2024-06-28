@@ -3,7 +3,7 @@ using SimpleNotes.Domain.Common;
 
 namespace SimpleNotes.Domain;
 
-public class Note(Guid id, string name, int maxNameLength, HashSet<Label> labels) : Entity<Guid>(id)
+public class Note(Guid id, string name, int maxNameLength, HashSet<Guid> labelIds) : Entity<Guid>(id)
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Note"/> class.
@@ -18,7 +18,7 @@ public class Note(Guid id, string name, int maxNameLength, HashSet<Label> labels
     public string Name { get; private set; } = name;
 
     public string? Text { get; set; }
-    public HashSet<Label> Labels { get; } = labels;
+    public HashSet<Guid> LabelIds { get; } = labelIds;
 
     public Result ChangeName(string name) =>
         Result
@@ -30,6 +30,6 @@ public class Note(Guid id, string name, int maxNameLength, HashSet<Label> labels
                 return Result.Ok();
             });
 
-    public Result AssignLabel(Label label) =>
-        Result.FailIf(!Labels.Add(label), new LabelAlreadyAssignedError(label));
+    public Result AssignLabel(Guid labelId) =>
+        Result.FailIf(!LabelIds.Add(labelId), new LabelAlreadyAssignedError(labelId));
 }
