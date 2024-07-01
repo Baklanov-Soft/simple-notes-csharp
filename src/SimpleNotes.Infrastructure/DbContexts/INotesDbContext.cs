@@ -12,4 +12,8 @@ public interface INotesDbContext : IDisposable, IAsyncDisposable
 
     int SaveChanges();
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+    void Migrate();
+    Task MigrateAsync(CancellationToken cancellationToken = default);
+    bool EnsureCreated();
+    Task EnsureCreatedAsync(CancellationToken cancellationToken = default);
 }
