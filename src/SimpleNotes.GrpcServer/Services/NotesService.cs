@@ -20,9 +20,21 @@ public class NotesService(ICreateNoteService createNoteService) : NotesServiceBa
                 .ToHashSet()
         };
         
-        var parentId= Guid.ParseExact(request.ParentId.Value, "D");
-        await createNoteService.CreateAsync(createNoteDto, parentId, context.CancellationToken);
+        if (request.ParentId is not null)
+        {
+            var parentId = Guid.ParseExact(request.ParentId.Value, "D");
+            await createNoteService.CreateAsync(createNoteDto, parentId, context.CancellationToken);
+        }
+        else
+        {
+            await createNoteService.CreateAsync(createNoteDto,null, context.CancellationToken);
+        }
 
         return new Empty();
+    }
+
+    public override Task<Empty> DeleteNote(DeleteNoteRequest request, ServerCallContext context)
+    {
+        return Task.FromResult(new Empty());
     }
 }

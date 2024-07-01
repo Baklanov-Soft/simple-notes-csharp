@@ -5,7 +5,8 @@ using SimpleNotes.Infrastructure.DbContexts;
 
 namespace SimpleNotes.Infrastructure.Services;
 
-public class CreateNoteService(INotesDbContext dbContext, INoteFactory noteFactory) : ICreateNoteService
+public class CreateNoteService(INotesDbContext dbContext, INoteFactory noteFactory, INoteRepository noteRepository)
+    : ICreateNoteService
 {
     public async Task CreateAsync(CreateNoteDto createNoteDto, Guid parentId,
         CancellationToken cancellationToken = default)
