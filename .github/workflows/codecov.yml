@@ -1,0 +1,36 @@
+name: Upload test coverage report to codecov
+
+on: [push, pull_request]
+
+jobs:
+  codecov:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Test
+        run: dotnet test /p:ContinuousIntegrationBuild=true /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+
+      - name: Upload unit tests coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          fail_ci_if_error: true
+          directory: test/SimpleNotes.Domain.UnitTests
+          file: coverage.opencover.xml
+          flags: unittests
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload integration tests coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          fail_ci_if_error: true
+          directory: test/SimpleNotes.Infrastructure.IntegrationTests
+          file: coverage.opencover.xml
+          flags: integration
+          token: ${{ secrets.CODECOV_TOKEN }}
