@@ -43,7 +43,7 @@ namespace SimpleNotes.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Labels", t =>
+                    b.ToTable("Labels", null, t =>
                         {
                             t.HasCheckConstraint("CK_Notes_ColorRegEx", "Color ~* '^#[a-f0-9]{6}$");
                         });
@@ -73,7 +73,7 @@ namespace SimpleNotes.Infrastructure.Migrations
 
                     NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("Path"), "GIST");
 
-                    b.ToTable("TreeNodes");
+                    b.ToTable("TreeNodes", (string)null);
 
                     b.UseTptMappingStrategy();
                 });
@@ -90,7 +90,7 @@ namespace SimpleNotes.Infrastructure.Migrations
 
                     b.HasIndex("TreeNodeId");
 
-                    b.ToTable("TreeNodeLabels");
+                    b.ToTable("TreeNodeLabels", (string)null);
                 });
 
             modelBuilder.Entity("SimpleNotes.Infrastructure.Entities.Note", b =>
@@ -101,7 +101,7 @@ namespace SimpleNotes.Infrastructure.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("character varying(250)");
 
-                    b.ToTable("Notes");
+                    b.ToTable("Notes", (string)null);
                 });
 
             modelBuilder.Entity("SimpleNotes.Infrastructure.Entities.TreeNodeLabel", b =>

@@ -8,7 +8,11 @@ public class TreeNodeConfiguration : IEntityTypeConfiguration<TreeNode>
     public void Configure(EntityTypeBuilder<TreeNode> builder)
     {
         builder.HasKey(n => n.Id);
-        builder.Property(n => n.Name).HasMaxLength(250);
+        
+        builder.Property(n => n.Name)
+            .IsRequired()
+            .HasMaxLength(250);
+
         builder.HasIndex(n => n.Path).HasMethod("GIST");
         builder.UseTptMappingStrategy();
 

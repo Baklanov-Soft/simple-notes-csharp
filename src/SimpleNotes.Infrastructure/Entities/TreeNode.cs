@@ -7,11 +7,11 @@ public class TreeNode
 {
     public required Guid Id { get; init; }
 
-    public required string Name { get; set; }
+    public string Name { get; set; } = null!;
 
-    public required NodeType Type { get; init; }
+    public NodeType Type { get; init; }
 
-    public LTree Path { get; set; } = null!;
+    public LTree Path { get; set; }
 
     public HashSet<TreeNodeLabel>? TreeNodeLabels { get; set; }
 }
