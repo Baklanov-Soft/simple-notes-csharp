@@ -12,6 +12,15 @@ public class NotesDbContext(DbContextOptions options) : DbContext(options), INot
     public DbSet<Label> Labels => Set<Label>();
     public DbSet<TreeNodeLabel> TreeNodeLabels => Set<TreeNodeLabel>();
 
+    public void Migrate() => Database.Migrate();
+    public bool EnsureCreated() => Database.EnsureCreated();
+
+    public Task MigrateAsync(CancellationToken cancellationToken = default) =>
+        Database.MigrateAsync(cancellationToken);
+
+    public Task EnsureCreatedAsync(CancellationToken cancellationToken = default) =>
+        Database.EnsureCreatedAsync(cancellationToken);
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasPostgresEnum<NodeType>();
