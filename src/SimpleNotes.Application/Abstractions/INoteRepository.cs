@@ -7,4 +7,5 @@ public interface INoteRepository
 {
     Task<Note?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
     Task<Result<string>> GetPathAsync(Guid id, CancellationToken cancellationToken = default);
+    Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
 }

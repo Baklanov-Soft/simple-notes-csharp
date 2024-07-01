@@ -2,8 +2,9 @@ using FluentResults;
 using Microsoft.EntityFrameworkCore;
 using SimpleNotes.Application.Abstractions;
 using SimpleNotes.Application.Errors;
-using SimpleNotes.Domain;
 using SimpleNotes.Infrastructure.DbContexts;
+using SimpleNotes.Infrastructure.Entities;
+using Note = SimpleNotes.Domain.Note;
 
 namespace SimpleNotes.Infrastructure.Repositories;
 
@@ -38,5 +39,15 @@ public class NoteRepository(INotesDbContext dbContext) : INoteRepository
         }
 
         return new ParentNotFoundError(id);
+    }
+
+    public Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        var treeNode = new TreeNode
+        {
+            Id = id
+        };
+        dbContext.TreeNodes.Remove(treeNode);
+        return dbContext.SaveChangesAsync(cancellationToken);
     }
 }
