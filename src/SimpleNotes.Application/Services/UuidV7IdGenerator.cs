@@ -1,6 +1,7 @@
+using SimpleNotes.Application.Abstractions;
 using UUIDNext;
 
-namespace SimpleNotes.Application.Abstractions;
+namespace SimpleNotes.Application.Services;
 
 public class UuidV7IdGenerator : IIdGenerator
 {

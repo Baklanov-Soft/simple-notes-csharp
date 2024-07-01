@@ -11,7 +11,7 @@ public class TreeNode
 
     public required NodeType Type { get; init; }
 
-    public required LTree Path { get; set; }
+    public LTree Path { get; set; } = null!;
 
     public HashSet<TreeNodeLabel>? TreeNodeLabels { get; set; }
 }
