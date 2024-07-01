@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using SimpleNotes.Application.Abstractions;
+using SimpleNotes.Application.Services;
 
 namespace SimpleNotes.Application.Extensions.DependencyInjection;
 
