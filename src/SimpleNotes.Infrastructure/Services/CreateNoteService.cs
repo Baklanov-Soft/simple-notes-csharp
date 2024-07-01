@@ -1,23 +1,28 @@
-using Microsoft.EntityFrameworkCore;
 using SimpleNotes.Application.Abstractions;
 using SimpleNotes.Application.Models;
 using SimpleNotes.Infrastructure.DbContexts;
+using SimpleNotes.Infrastructure.Entities;
 
 namespace SimpleNotes.Infrastructure.Services;
 
 public class CreateNoteService(INotesDbContext dbContext, INoteFactory noteFactory, INoteRepository noteRepository)
     : ICreateNoteService
 {
-    public async Task CreateAsync(CreateNoteDto createNoteDto, Guid parentId,
+    public async Task CreateAsync(CreateNoteDto createNoteDto, Guid? parentId,
         CancellationToken cancellationToken = default)
     {
-        var parentPath = await dbContext.TreeNodes
-            .AsNoTracking()
-            .Where(node => node.Id == parentId)
-            .Select(node => node.Path.ToString())
-            .FirstOrDefaultAsync(cancellationToken);
+        Note note;
 
-        var note = noteFactory.Create(createNoteDto, parentPath);
+        if (parentId.HasValue)
+        {
+            var parentPathResult = await noteRepository.GetPathAsync(parentId.Value, cancellationToken);
+            note = noteFactory.Create(createNoteDto, parentPathResult);
+        }
+        else
+        {
+            note = noteFactory.Create(createNoteDto);
+        }
+
         dbContext.Notes.Add(note);
         await dbContext.SaveChangesAsync(cancellationToken);
     }
