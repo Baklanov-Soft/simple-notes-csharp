@@ -1,5 +1,6 @@
 using FluentResults;
 using SimpleNotes.Domain.Common;
+using SimpleNotes.Domain.Errors;
 
 namespace SimpleNotes.Domain;
 

@@ -1,6 +1,6 @@
 using FluentResults;
 
-namespace SimpleNotes.Domain;
+namespace SimpleNotes.Domain.Errors;
 
 public class LabelAlreadyAssignedError(Guid labelId) : Error(MessageText)
 {
