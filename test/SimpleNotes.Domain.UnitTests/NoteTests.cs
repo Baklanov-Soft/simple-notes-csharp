@@ -1,3 +1,5 @@
+using SimpleNotes.Domain.Errors;
+
 namespace SimpleNotes.Domain.UnitTests;
 
 public class NoteTests

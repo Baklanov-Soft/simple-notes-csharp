@@ -1,6 +1,6 @@
 using FluentResults;
 
-namespace SimpleNotes.Domain;
+namespace SimpleNotes.Domain.Errors;
 
 /// <summary>
 /// Represents an error that occurs when the note name is null or whitespace.
