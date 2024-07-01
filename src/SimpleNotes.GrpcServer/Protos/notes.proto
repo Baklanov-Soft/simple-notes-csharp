@@ -16,11 +16,16 @@ message LabelIds {
 
 service NotesService {
   rpc CreateNote(CreateNoteRequest) returns (google.protobuf.Empty);
+  rpc DeleteNote(DeleteNoteRequest) returns (google.protobuf.Empty);
 }
 
 message CreateNoteRequest {
   string name = 1;
   string text = 2;
-  UUID parentId = 3;
+  optional UUID parentId = 3;
   optional LabelIds labelIds = 4;
+}
+
+message DeleteNoteRequest {
+  UUID noteId = 1;
 }
