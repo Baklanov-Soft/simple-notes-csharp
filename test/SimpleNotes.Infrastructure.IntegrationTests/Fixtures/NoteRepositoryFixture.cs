@@ -17,6 +17,8 @@ public sealed class NoteRepositoryFixture : IAsyncLifetime
         .WithImage("postgres:16-alpine3.18")
         .Build();
 
+    public ServiceProvider? Services { get; private set; }
+    
     public async Task InitializeAsync()
     {
         await _container.StartAsync();
@@ -35,8 +37,6 @@ public sealed class NoteRepositoryFixture : IAsyncLifetime
         await Services.DisposeAsync();
         await _container.DisposeAsync().AsTask();
     }
-
-    public ServiceProvider? Services { get; private set; }
 
     private void CreateAndSeedSchema()
     {

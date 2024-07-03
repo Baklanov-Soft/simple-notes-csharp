@@ -23,7 +23,7 @@ public sealed class NoteRepositoryTests(NoteRepositoryFixture fixture) : IClassF
     {
         var noteId = Guid.ParseExact("0190593f-855b-7ef4-8c94-a777561bf853", "D");
 
-        var pathResult = await _noteRepository.GetPathAsync(noteId);
+        var pathResult = await _noteRepository.GetFolderPathAsync(noteId);
 
         pathResult.IsSuccess.Should().BeTrue();
         pathResult.Value.Should().Be("0190593f-855b-7ef4-8c94-a777561bf853");
