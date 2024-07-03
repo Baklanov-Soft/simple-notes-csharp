@@ -27,6 +27,7 @@ public static class InfrastructureServiceCollectionExtensions
         return serviceCollection
             .AddSingleton<INoteFactory, NoteFactory>()
             .AddScoped<ICreateNoteService, CreateNoteService>()
-            .AddScoped<INoteRepository, NoteRepository>();
+            .AddScoped<INoteRepository, NoteRepository>()
+            .AddScoped<INoteLabelsRepository, NoteLabelsRepository>();
     }
 }
