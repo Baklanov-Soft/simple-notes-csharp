@@ -1,11 +1,12 @@
+using Microsoft.Extensions.DependencyInjection;
 using SimpleNotes.Application.Abstractions;
 using SimpleNotes.Infrastructure.IntegrationTests.Fixtures;
 
 namespace SimpleNotes.Infrastructure.IntegrationTests;
 
-public class NoteRepositoryTests(NoteRepositoryFixture seedFixture) : IClassFixture<NoteRepositoryFixture>
+public sealed class NoteRepositoryTests(NoteRepositoryFixture fixture) : IClassFixture<NoteRepositoryFixture>
 {
-    private readonly INoteRepository _noteRepository = seedFixture.NoteRepository;
+    private readonly INoteRepository _noteRepository = fixture.Services.GetRequiredService<INoteRepository>();
 
     [Fact]
     public async Task Get_note_by_id()
@@ -18,13 +19,23 @@ public class NoteRepositoryTests(NoteRepositoryFixture seedFixture) : IClassFixt
     }
 
     [Fact]
-    public async Task Get_path_by_id()
+    public async Task Get_folder_path_by_id()
+    {
+        var noteId = Guid.ParseExact("01907847-3a2d-7bc6-8667-54072be7aa07", "D");
+
+        var pathResult = await _noteRepository.GetFolderPathAsync(noteId);
+
+        pathResult.IsSuccess.Should().BeTrue();
+        pathResult.Value.Should().Be("01907847-3a2d-7bc6-8667-54072be7aa07");
+    }
+
+    [Fact]
+    public async Task Delete_note()
     {
         var noteId = Guid.ParseExact("0190593f-855b-7ef4-8c94-a777561bf853", "D");
+        await _noteRepository.DeleteAsync(noteId);
 
-        var pathResult = await _noteRepository.GetPathAsync(noteId);
-        
-        pathResult.IsSuccess.Should().BeTrue();
-        pathResult.Value.Should().Be("0190593f-855b-7ef4-8c94-a777561bf853");
+        var note = await _noteRepository.GetByIdAsync(noteId);
+        note.Should().BeNull();
     }
 }

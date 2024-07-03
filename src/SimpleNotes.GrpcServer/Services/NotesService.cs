@@ -9,7 +9,7 @@ using NotesServiceBase = SimpleNotes.GrpcServer.NotesService.NotesServiceBase;
 
 public class NotesService(ICreateNoteService createNoteService, INoteRepository noteRepository) : NotesServiceBase
 {
-    public override async Task<Empty> CreateNote(CreateNoteRequest request, ServerCallContext context)
+    public override async Task<NoteCreatedResponse> CreateNote(CreateNoteRequest request, ServerCallContext context)
     {
         var createNoteDto = new CreateNoteDto
         {
@@ -20,17 +20,26 @@ public class NotesService(ICreateNoteService createNoteService, INoteRepository 
                 .ToHashSet()
         };
 
+        ReadNoteDto readNoteDto;
         if (request.ParentId is not null)
         {
             var parentId = Guid.ParseExact(request.ParentId.Value, "D");
-            await createNoteService.CreateAsync(createNoteDto, parentId, context.CancellationToken);
+            readNoteDto = await createNoteService.CreateAsync(createNoteDto, parentId, context.CancellationToken);
         }
         else
         {
-            await createNoteService.CreateAsync(createNoteDto, null, context.CancellationToken);
+            readNoteDto = await createNoteService.CreateAsync(createNoteDto, null, context.CancellationToken);
         }
 
-        return new Empty();
+        return new NoteCreatedResponse
+        {
+            Id = new UUID
+            {
+                Value = readNoteDto.Id.ToString()
+            },
+            Name = readNoteDto.Name,
+            Text = readNoteDto.Text
+        };
     }
 
     public override async Task<Empty> DeleteNote(DeleteNoteRequest request, ServerCallContext context)
