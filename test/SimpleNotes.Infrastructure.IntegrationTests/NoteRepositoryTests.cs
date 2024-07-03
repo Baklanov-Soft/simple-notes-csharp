@@ -19,14 +19,14 @@ public sealed class NoteRepositoryTests(NoteRepositoryFixture fixture) : IClassF
     }
 
     [Fact]
-    public async Task Get_path_by_id()
+    public async Task Get_folder_path_by_id()
     {
-        var noteId = Guid.ParseExact("0190593f-855b-7ef4-8c94-a777561bf853", "D");
+        var noteId = Guid.ParseExact("01907847-3a2d-7bc6-8667-54072be7aa07", "D");
 
         var pathResult = await _noteRepository.GetFolderPathAsync(noteId);
 
         pathResult.IsSuccess.Should().BeTrue();
-        pathResult.Value.Should().Be("0190593f-855b-7ef4-8c94-a777561bf853");
+        pathResult.Value.Should().Be("01907847-3a2d-7bc6-8667-54072be7aa07");
     }
 
     [Fact]

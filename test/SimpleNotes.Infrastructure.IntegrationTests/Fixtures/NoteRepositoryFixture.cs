@@ -47,11 +47,12 @@ public sealed class NoteRepositoryFixture : IAsyncLifetime
 
         var noteId = Guid.ParseExact("0190593f-855b-7ef4-8c94-a777561bf853", "D");
         var labelId = Guid.ParseExact("01905940-1776-76b4-b8a7-669f8fd2853c", "D");
+        var folderId = Guid.ParseExact("01907847-3a2d-7bc6-8667-54072be7aa07", "D");
         var note = new Note
         {
             Id = noteId,
             Name = "Test note 1",
-            Path = new LTree(noteId.ToString()),
+            Path = new LTree($"{folderId}.{noteId}"),
             Type = NodeType.Note,
             Text = "Text for test note 1",
             TreeNodeLabels =
@@ -69,7 +70,15 @@ public sealed class NoteRepositoryFixture : IAsyncLifetime
                 }
             ]
         };
-
+        var folder = new TreeNode
+        {
+            Id = folderId,
+            Name = "dev",
+            Path = new LTree(folderId.ToString()),
+            Type = NodeType.Folder
+        };
+        
+        dbContext.TreeNodes.Add(folder);
         dbContext.Notes.Add(note);
         dbContext.SaveChanges();
     }
