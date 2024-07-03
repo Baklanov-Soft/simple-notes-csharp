@@ -2,12 +2,16 @@ using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using SimpleNotes.Application.Abstractions;
 using SimpleNotes.Application.Models;
+using SimpleNotes.Application.Services;
 
 namespace SimpleNotes.GrpcServer.Services;
 
 using NotesServiceBase = SimpleNotes.GrpcServer.NotesService.NotesServiceBase;
 
-public class NotesService(ICreateNoteService createNoteService, INoteRepository noteRepository) : NotesServiceBase
+public class NotesService(
+    ICreateNoteService createNoteService,
+    INoteRepository noteRepository,
+    IAssignLabelService assignLabelService) : NotesServiceBase
 {
     public override async Task<NoteCreatedResponse> CreateNote(CreateNoteRequest request, ServerCallContext context)
     {
@@ -46,6 +50,16 @@ public class NotesService(ICreateNoteService createNoteService, INoteRepository 
     {
         var noteId = Guid.ParseExact(request.NoteId.Value, "D");
         await noteRepository.DeleteAsync(noteId, context.CancellationToken);
+
+        return new Empty();
+    }
+
+    public override async Task<Empty> AssignLabel(AssignLabelRequest request, ServerCallContext context)
+    {
+        var noteId = Guid.ParseExact(request.NoteId.Value, "D");
+        var labelId = Guid.ParseExact(request.LabelId.Value, "D");
+
+        await assignLabelService.AssignLabelAsync(noteId, labelId, context.CancellationToken);
 
         return new Empty();
     }

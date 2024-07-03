@@ -8,6 +8,8 @@ public static class ApplicationServiceCollectionExtensions
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        return services.AddSingleton<IIdGenerator, UuidV7IdGenerator>();
+        return services
+            .AddSingleton<IIdGenerator, UuidV7IdGenerator>()
+            .AddScoped<IAssignLabelService, AssignLabelService>();
     }
 }

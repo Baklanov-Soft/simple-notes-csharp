@@ -16,8 +16,7 @@ public class NoteRepository(INotesDbContext dbContext) : INoteRepository
         var note = await dbContext.Notes
             .AsNoTracking()
             .Where(n => n.Id == id)
-            .Select(n => new Note(n.Id, n.Name, 250,
-                n.TreeNodeLabels!.Select(l => l.LabelId).ToHashSet())
+            .Select(n => new Note(n.Id, n.Name, 250)
             {
                 Text = n.Text
             })
