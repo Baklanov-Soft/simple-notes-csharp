@@ -4,6 +4,7 @@ using SimpleNotes.Application.Abstractions;
 using SimpleNotes.Application.Errors;
 using SimpleNotes.Infrastructure.DbContexts;
 using SimpleNotes.Infrastructure.Entities;
+using SimpleNotes.Infrastructure.Enums;
 using Note = SimpleNotes.Domain.Note;
 
 namespace SimpleNotes.Infrastructure.Repositories;
@@ -25,10 +26,11 @@ public class NoteRepository(INotesDbContext dbContext) : INoteRepository
         return note;
     }
 
-    public async Task<Result<string>> GetPathAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Result<string>> GetFolderPathAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var path = await dbContext.TreeNodes
             .AsNoTracking()
+            .Where(node => node.Type == NodeType.Folder)
             .Where(node => node.Id == id)
             .Select(node => node.Path.ToString())
             .FirstOrDefaultAsync(cancellationToken);

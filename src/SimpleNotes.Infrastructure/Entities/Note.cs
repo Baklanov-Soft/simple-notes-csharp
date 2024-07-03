@@ -23,4 +23,9 @@ public class Note : TreeNode
                 .ToHashSet()
         };
     }
+
+    public ReadNoteDto ToReadDto()
+    {
+        return new ReadNoteDto(Id, Name, Text);
+    }
 }

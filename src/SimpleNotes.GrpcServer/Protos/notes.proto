@@ -15,7 +15,7 @@ message LabelIds {
 }
 
 service NotesService {
-  rpc CreateNote(CreateNoteRequest) returns (google.protobuf.Empty);
+  rpc CreateNote(CreateNoteRequest) returns (NoteCreatedResponse);
   rpc DeleteNote(DeleteNoteRequest) returns (google.protobuf.Empty);
 }
 
@@ -24,6 +24,12 @@ message CreateNoteRequest {
   string text = 2;
   optional UUID parentId = 3;
   optional LabelIds labelIds = 4;
+}
+
+message NoteCreatedResponse {
+  UUID id = 1;
+  string name = 2;
+  string text = 3;
 }
 
 message DeleteNoteRequest {

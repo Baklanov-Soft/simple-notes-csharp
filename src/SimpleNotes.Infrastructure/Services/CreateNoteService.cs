@@ -8,14 +8,14 @@ namespace SimpleNotes.Infrastructure.Services;
 public class CreateNoteService(INotesDbContext dbContext, INoteFactory noteFactory, INoteRepository noteRepository)
     : ICreateNoteService
 {
-    public async Task CreateAsync(CreateNoteDto createNoteDto, Guid? parentId,
+    public async Task<ReadNoteDto> CreateAsync(CreateNoteDto createNoteDto, Guid? parentId,
         CancellationToken cancellationToken = default)
     {
         Note note;
 
         if (parentId.HasValue)
         {
-            var parentPathResult = await noteRepository.GetPathAsync(parentId.Value, cancellationToken);
+            var parentPathResult = await noteRepository.GetFolderPathAsync(parentId.Value, cancellationToken);
             note = noteFactory.Create(createNoteDto, parentPathResult);
         }
         else
@@ -25,5 +25,7 @@ public class CreateNoteService(INotesDbContext dbContext, INoteFactory noteFacto
 
         dbContext.Notes.Add(note);
         await dbContext.SaveChangesAsync(cancellationToken);
+
+        return note.ToReadDto();
     }
 }
